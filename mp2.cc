@@ -83,11 +83,15 @@ int main(int argc, char ** argv) {
 
     wbTime_start(Copy, "Copying output memory to the CPU");
     //@@ Copy the GPU memory back to the CPU here
+    cudaMemcpy(hostC, deviceC, size, cudaMemcpyDeviceToHost);
 
     wbTime_stop(Copy, "Copying output memory to the CPU");
 
     wbTime_start(GPU, "Freeing GPU Memory");
     //@@ Free the GPU memory here
+    cudaFree(deviceA);
+    cudaFree(deviceB);
+    cudaFree(deviceC);
 
     wbTime_stop(GPU, "Freeing GPU Memory");
 
