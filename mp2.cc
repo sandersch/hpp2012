@@ -1,6 +1,8 @@
 // MP 2: Due Sunday, Dec 16, 2012 at 11:59 p.m. PST
 #include    <wb.h>
 
+#define TILE_WIDTH 16
+
 #define wbCheck(stmt) do {                                 \
         cudaError_t err = stmt;                            \
         if (err != cudaSuccess) {                          \
@@ -67,6 +69,8 @@ int main(int argc, char ** argv) {
     wbTime_stop(GPU, "Copying input memory to the GPU.");
 
     //@@ Initialize the grid and block dimensions here
+    dim3 DimGrid(numCRows/TILE_WIDTH, numCColumns/TILE_WIDTH, 1);
+    dim3 DimBlock(TILE_WIDTH, TILE_WIDTH, 1);
 
     wbTime_start(Compute, "Performing CUDA computation");
     //@@ Launch the GPU Kernel here
