@@ -74,7 +74,10 @@ int main(int argc, char ** argv) {
 
     wbTime_start(Compute, "Performing CUDA computation");
     //@@ Launch the GPU Kernel here
-
+    matrixMultiply<<<DimGrid, DimBlock>>>(deviceA, deviceB, deviceC,
+                   numARows, numAColumns,
+                   numBRows, numBColumns,
+                   numCRows, numCColumns);
     cudaThreadSynchronize();
     wbTime_stop(Compute, "Performing CUDA computation");
 
