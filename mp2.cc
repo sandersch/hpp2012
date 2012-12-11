@@ -25,12 +25,15 @@ int main(int argc, char ** argv) {
     float * deviceA;
     float * deviceB;
     float * deviceC;
-    int numARows; // number of rows in the matrix A
-    int numAColumns; // number of columns in the matrix A
-    int numBRows; // number of rows in the matrix B
-    int numBColumns; // number of columns in the matrix B
-    int numCRows; // number of rows in the matrix C (you have to set this)
-    int numCColumns; // number of columns in the matrix C (you have to set this)
+
+    // If A is an n x m matrix and B is an m x p matrix, the result AB of
+    // their multiplication is an n x p matrix
+    int numARows; // number of rows in the matrix A (n)
+    int numAColumns; // number of columns in the matrix A (m)
+    int numBRows; // number of rows in the matrix B - (m)
+    int numBColumns; // number of columns in the matrix B - (p)
+    int numCRows; // number of rows in the matrix C (n)
+    int numCColumns; // number of columns in the matrix C (p)
 
     args = wbArg_read(argc, argv);
 
@@ -38,9 +41,10 @@ int main(int argc, char ** argv) {
     hostA = (float *) wbImport(wbArg_getInputFile(args, 0), &numARows, &numAColumns);
     hostB = (float *) wbImport(wbArg_getInputFile(args, 1), &numBRows, &numBColumns);
     //@@ Set numCRows and numCColumns
-    numCRows = 0;
-    numCColumns = 0;
+    numCRows = numARows;
+    numCColumns = numBColumns;
     //@@ Allocate the hostC matrix
+    hostC = (float *) malloc(numCRows * numCColumns * sizeof(float));
     wbTime_stop(Generic, "Importing data and creating memory on host");
 
     wbLog(TRACE, "The dimensions of A are ", numARows, " x ", numAColumns);
