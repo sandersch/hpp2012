@@ -61,6 +61,8 @@ int main(int argc, char ** argv) {
 
     wbTime_start(GPU, "Copying input memory to the GPU.");
     //@@ Copy memory to the GPU here
+    cudaMemcpy(deviceA, hostA, size, cudaMemcpyHostToDevice);
+    cudaMemcpy(deviceB, hostB, size, cudaMemcpyHostToDevice);
 
     wbTime_stop(GPU, "Copying input memory to the GPU.");
 
