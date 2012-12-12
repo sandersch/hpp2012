@@ -1,7 +1,7 @@
 // MP 2: Due Sunday, Dec 16, 2012 at 11:59 p.m. PST
 #include    <wb.h>
 
-#define TILE_WIDTH 16
+#define TILE_WIDTH 32
 
 #define wbCheck(stmt) do {                                 \
         cudaError_t err = stmt;                            \
